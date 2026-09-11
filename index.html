@@ -6,7 +6,7 @@
   <title>Guillaume Dullier — Portfolio</title>
   <style>
     /* =========================================================
-       1. AFFICHAGE ÉCRAN (Votre design d'origine préservé)
+       1. AFFICHAGE ÉCRAN (Votre style d'origine conservé)
        ========================================================= */
     * {
       box-sizing: border-box;
@@ -68,32 +68,32 @@
     }
 
     /* =========================================================
-       2. RÈGLES D'IMPRESSION (1 page par planche + orientation auto)
+       2. IMPRESSION : RÉGLAGE DE HAUTEUR STRICTE SANS COUPURE
        ========================================================= */
     @media print {
-      /* Définition des formats de page */
       @page page-portrait {
-        size: A4 portrait;
-        margin: 8mm;
+        size: 210mm 297mm; /* A4 Portrait strict */
+        margin: 6mm;
       }
 
       @page page-landscape {
-        size: A4 landscape;
-        margin: 8mm;
+        size: 297mm 210mm; /* A4 Paysage strict */
+        margin: 6mm;
       }
 
-      /* Réinitialisation de base */
       html, body {
-        background: #ffffff !important;
-        color: #000000 !important;
+        width: 100% !important;
+        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       header {
-        display: none !important; /* Masque le bandeau de titre pour débuter directement sur le CV */
+        display: none !important;
       }
 
       .gallery {
@@ -104,7 +104,6 @@
         padding: 0 !important;
       }
 
-      /* Propriétés communes à chaque feuille */
       .item {
         background: transparent !important;
         box-shadow: none !important;
@@ -112,53 +111,69 @@
         margin: 0 !important;
         padding: 0 !important;
 
-        /* Force une planche = une page */
+        /* Saut de page strict par planche */
         break-inside: avoid !important;
         page-break-inside: avoid !important;
         break-after: page !important;
         page-break-after: always !important;
 
-        height: 100vh !important;
-        max-height: 100vh !important;
-        width: 100% !important;
+        /* Flexbox pour caler le contenu au centre de la feuille */
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
       }
 
-      /* Assignation des orientations spécifiques */
+      /* Hauteur maximale calculée par rapport à la taille physique de la feuille */
       .item.page-portrait {
         page: page-portrait;
+        height: 285mm !important; /* 297mm - 12mm de marges */
+        max-height: 285mm !important;
       }
 
       .item.page-landscape {
         page: page-landscape;
+        height: 198mm !important; /* 210mm - 12mm de marges */
+        max-height: 198mm !important;
       }
 
-      /* Supprime le saut de page sur la toute dernière planche */
       .item:last-child {
         break-after: auto !important;
         page-break-after: auto !important;
       }
 
-      /* Titres / cartouches discrets en impression */
+      /* Titre discret au-dessus de la planche */
       .item .title {
         border-bottom: none !important;
-        color: #111111 !important;
-        font-size: 11pt !important;
-        font-weight: 600 !important;
-        margin-bottom: 4mm !important;
+        color: #222222 !important;
+        font-size: 9pt !important;
+        font-weight: bold !important;
+        line-height: 12pt !important;
+        height: 12pt !important;
+        margin: 0 0 3mm 0 !important;
         padding: 0 !important;
+        text-align: center !important;
       }
 
-      /* Ajustement précis de l'image dans les limites de la feuille */
-      .item img {
+      /* Image contrainte pour ne JAMAIS déborder ni être coupée */
+      .item.page-portrait img {
         max-width: 100% !important;
-        max-height: calc(100vh - 22mm) !important;
+        max-height: calc(285mm - 10mm) !important;
         width: auto !important;
         height: auto !important;
         object-fit: contain !important;
+        display: block !important;
+      }
+
+      .item.page-landscape img {
+        max-width: 100% !important;
+        max-height: calc(198mm - 10mm) !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        display: block !important;
       }
     }
   </style>
@@ -179,15 +194,15 @@
 
     <div class="item page-portrait">
       <div class="title">Planche Lettre de recommandation Jandard</div>
-      <img alt="Planche 01" src="Lettre de recommandation Jandard.webp">
+      <img alt="Planche Lettre Jandard" src="Lettre de recommandation Jandard.webp">
     </div>
 
     <div class="item page-portrait">
       <div class="title">Lettre de recommandation E de Vimal</div>
-      <img alt="Planche 10.5" src="Lettre de recommandation E de Vimal.webp">
+      <img alt="Lettre E de Vimal" src="Lettre de recommandation E de Vimal.webp">
     </div>
 
-    <!-- FORMAT PAYSAGE (Planches techniques BIM / Plans) -->
+    <!-- FORMAT PAYSAGE (Planches techniques) -->
     <div class="item page-landscape">
       <div class="title">Planche 01 / 20</div>
       <img alt="Planche 01" src="1.webp">
@@ -235,57 +250,59 @@
 
     <div class="item page-landscape">
       <div class="title">Planche 10 / 20</div>
-      <img alt="Planche 11" src="11.webp">
+      <img alt="Planche 10" src="11.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 11 / 20</div>
-      <img alt="Planche 12" src="12.webp">
+      <img alt="Planche 11" src="12.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 12 / 20</div>
-      <img alt="Planche 13" src="13.webp">
+      <img alt="Planche 12" src="13.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 13 / 20</div>
-      <img alt="Planche 14" src="14.webp">
+      <img alt="Planche 13" src="14.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 14 / 20</div>
-      <img alt="Planche 15" src="15.webp">
+      <img alt="Planche 14" src="15.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 15 / 20</div>
-      <img alt="Planche 16" src="16.webp">
+      <img alt="Planche 15" src="16.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 16 / 20</div>
-      <img alt="Planche 17" src="17.webp">
+      <img alt="Planche 16" src="17.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 17 / 20</div>
-      <img alt="Planche 18" src="18.webp">
+      <img alt="Planche 17" src="18.webp">
     </div>
 
     <div class="item page-landscape">
       <div class="title">Planche 18 / 20</div>
-      <img alt="Planche 19" src="19.webp">
+      <img alt="Planche 18" src="19.webp">
     </div>
 
-    <div class="item page-landscape">
+    <!-- FORMAT PORTRAIT (Planche 19 est au format vertical) -->
+    <div class="item page-portrait">
       <div class="title">Planche 19 / 20</div>
-      <img alt="Planche 20" src="20.webp">
+      <img alt="Planche 19" src="20.webp">
     </div>
 
+    <!-- FORMAT PAYSAGE (Remerciements) -->
     <div class="item page-landscape">
       <div class="title">Planche 20 / 20</div>
-      <img alt="Planche 10" src="MERCI.png">
+      <img alt="Planche 20" src="MERCI.png">
     </div>
 
   </div>
