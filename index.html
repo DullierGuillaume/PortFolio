@@ -2,274 +2,292 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio - Guillaume Dullier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guillaume Dullier — Portfolio</title>
   <style>
-    body {
-      background-color: #111;
-      color: #eee;
-      font-family: sans-serif;
+    /* =========================================================
+       1. AFFICHAGE ÉCRAN (Votre design d'origine préservé)
+       ========================================================= */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 30px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 0;
     }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      padding: 20px;
+    }
+
     header {
       text-align: center;
       margin-bottom: 30px;
     }
-    .container {
-      width: 100%;
-      max-width: 1000px;
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .gallery {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .card {
-      background: #1c1c1c;
-      border: 1px solid #333;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #242424;
       border-radius: 8px;
       overflow: hidden;
-      padding: 10px;
-      box-sizing: border-box;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      padding-bottom: 15px;
     }
-    .card-title {
-      font-size: 14px;
-      color: #aaa;
-      margin-bottom: 8px;
-      padding-left: 4px;
+
+    .item .title {
+      font-size: 1rem;
+      padding: 14px;
+      color: #e0e0e0;
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #333;
     }
-    img {
-      display: block;
+
+    .item img {
       width: 100%;
       height: auto;
-      border-radius: 4px;
+      display: block;
+      object-fit: contain;
     }
-/* *******
-/* =========================================================
-   STYLE D'IMPRESSION (Actif uniquement lors de l'impression / export PDF)
-   Ne modifie en rien l'affichage normal sur écran
-   ========================================================= */
-@media print {
-  /* Configuration de la page : format paysage recommandé pour des planches BIM / archi */
-  @page {
-    size: A4 landscape; /* Utilisez "A3 landscape" ou "A4 portrait" selon le ratio de vos planches */
-    margin: 8mm;        /* Marges propres pour l'imprimante */
-  }
 
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+    /* =========================================================
+       2. RÈGLES D'IMPRESSION (1 page par planche + orientation auto)
+       ========================================================= */
+    @media print {
+      /* Définition des formats de page */
+      @page page-portrait {
+        size: A4 portrait;
+        margin: 8mm;
+      }
 
-  /* Masquer les éléments non nécessaires à l'impression si besoin (ex: header de navigation) */
-  /* header { display: none !important; } */
+      @page page-landscape {
+        size: A4 landscape;
+        margin: 8mm;
+      }
 
-  /* Chaque planche devient une page dédiée */
-  .grid > div,
-  .container > div,
-  body > div > div {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    page-break-after: always !important;
-    break-after: page !important;
-    
-    /* Occupe toute la hauteur imprimable */
-    height: 100vh !important;
-    max-height: 100vh !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    
-    /* Centrage parfait de la planche */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
+      /* Réinitialisation de base */
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  /* Évite une page blanche superflue après la dernière planche */
-  .grid > div:last-child,
-  .container > div:last-child,
-  body > div > div:last-child {
-    page-break-after: auto !important;
-    break-after: auto !important;
-  }
+      header {
+        display: none !important; /* Masque le bandeau de titre pour débuter directement sur le CV */
+      }
 
-  /* Adaptation parfaite de l'image de la planche */
-  img {
-    max-width: 100% !important;
-    max-height: calc(100vh - 25mm) !important; /* Laisse la place pour le titre/cartouche */
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
-    display: block !important;
-    margin: auto !important;
-  }
+      .gallery {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
 
-  /* Légende / titre au-dessus ou en-dessous de la planche */
-  div > div:first-child {
-    font-size: 11pt !important;
-    font-weight: bold !important;
-    margin-bottom: 4mm !important;
-    page-break-inside: avoid !important;
-  }
-}
-/* *******
+      /* Propriétés communes à chaque feuille */
+      .item {
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        /* Force une planche = une page */
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        break-after: page !important;
+        page-break-after: always !important;
+
+        height: 100vh !important;
+        max-height: 100vh !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+
+      /* Assignation des orientations spécifiques */
+      .item.page-portrait {
+        page: page-portrait;
+      }
+
+      .item.page-landscape {
+        page: page-landscape;
+      }
+
+      /* Supprime le saut de page sur la toute dernière planche */
+      .item:last-child {
+        break-after: auto !important;
+        page-break-after: auto !important;
+      }
+
+      /* Titres / cartouches discrets en impression */
+      .item .title {
+        border-bottom: none !important;
+        color: #111111 !important;
+        font-size: 11pt !important;
+        font-weight: 600 !important;
+        margin-bottom: 4mm !important;
+        padding: 0 !important;
+      }
+
+      /* Ajustement précis de l'image dans les limites de la feuille */
+      .item img {
+        max-width: 100% !important;
+        max-height: calc(100vh - 22mm) !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+      }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Guillaume Dullier — BIM Modeleur & Projeteur</h1>
+    <h1>Guillaume Dullier — BIM Modeleur &amp; Projeteur</h1>
   </header>
 
-  <div class="container">
-    <!-- Curriculum Vitae -->
-    <div class="card">
-      <div class="card-title">Curriculum Vitae — Guillaume Dullier</div>
-      <img src="cv.png" alt="CV Guillaume Dullier" onerror="this.onerror=null; this.src='CV-Guillaume-Dullier.jpg';">
-    </div>
-
-    <!-- Lettre de recommandation Jandard -->
-    <div class="card">
-      <div class="card-title">Planche Lettre de recommandation Jandard </div>
-      <img src="Lettre de recommandation Jandard.webp" alt="Planche 01" onerror="this.onerror=null; this.src='1.jpg';">
-    </div>
-
-    <!-- Lettre de recommandation E de Vimal -->
-    <div class="card">
-      <div class="card-title">Lettre de recommandation E de Vimal</div>
-      <img src="Lettre de recommandation E de Vimal.webp" alt="Planche 10.5" onerror="this.onerror=null; this.src='10.jpg';">
-    </div>
-
+  <div class="gallery">
     
-    <!-- Planche 1 -->
-    <div class="card">
-      <div class="card-title">Planche 01 / 20</div>
-      <img src="1.webp" alt="Planche 01" onerror="this.onerror=null; this.src='Lettre de recommandation Jandard.jpg';">
+    <!-- FORMAT PORTRAIT (CV et Recommandations) -->
+    <div class="item page-portrait">
+      <div class="title">Curriculum Vitae — Guillaume Dullier</div>
+      <img alt="CV Guillaume Dullier" src="cv.png">
     </div>
 
-    <!-- Planche 2 -->
-    <div class="card">
-      <div class="card-title">Planche 02 / 20</div>
-      <img src="2.webp" alt="Planche 02" onerror="this.onerror=null; this.src='2.jpg';">
+    <div class="item page-portrait">
+      <div class="title">Planche Lettre de recommandation Jandard</div>
+      <img alt="Planche 01" src="Lettre de recommandation Jandard.webp">
     </div>
 
-    <!-- Planche 3 -->
-    <div class="card">
-      <div class="card-title">Planche 03 / 20</div>
-      <img src="3.webp" alt="Planche 03" onerror="this.onerror=null; this.src='3.jpg';">
+    <div class="item page-portrait">
+      <div class="title">Lettre de recommandation E de Vimal</div>
+      <img alt="Planche 10.5" src="Lettre de recommandation E de Vimal.webp">
     </div>
 
-    <!-- Planche 4 -->
-    <div class="card">
-      <div class="card-title">Planche 04 / 20</div>
-      <img src="4.webp" alt="Planche 04" onerror="this.onerror=null; this.src='4.jpg';">
+    <!-- FORMAT PAYSAGE (Planches techniques BIM / Plans) -->
+    <div class="item page-landscape">
+      <div class="title">Planche 01 / 20</div>
+      <img alt="Planche 01" src="1.webp">
     </div>
 
-    <!-- Planche 5 -->
-    <div class="card">
-      <div class="card-title">Planche 05 / 20</div>
-      <img src="5.webp" alt="Planche 05" onerror="this.onerror=null; this.src='5.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 02 / 20</div>
+      <img alt="Planche 02" src="2.webp">
     </div>
 
-    <!-- Planche 6 -->
-    <div class="card">
-      <div class="card-title">Planche 06 / 20</div>
-      <img src="6.webp" alt="Planche 06" onerror="this.onerror=null; this.src='6.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 03 / 20</div>
+      <img alt="Planche 03" src="3.webp">
     </div>
 
-    <!-- Planche 7 -->
-    <div class="card">
-      <div class="card-title">Planche 07 / 20</div>
-      <img src="7.webp" alt="Planche 07" onerror="this.onerror=null; this.src='7.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 04 / 20</div>
+      <img alt="Planche 04" src="4.webp">
     </div>
 
-    <!-- Planche 8 -->
-    <div class="card">
-      <div class="card-title">Planche 08 / 20</div>
-      <img src="8.webp" alt="Planche 08" onerror="this.onerror=null; this.src='8.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 05 / 20</div>
+      <img alt="Planche 05" src="5.webp">
     </div>
 
-    <!-- Planche 9 -->
-    <div class="card">
-      <div class="card-title">Planche 09 / 20</div>
-      <img src="9.webp" alt="Planche 09" onerror="this.onerror=null; this.src='9.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 06 / 20</div>
+      <img alt="Planche 06" src="6.webp">
     </div>
 
-   
-
-    <!-- Planche 10 -->
-    <div class="card">
-      <div class="card-title">Planche 10 / 20</div>
-      <img src="11.webp" alt="Planche 11" onerror="this.onerror=null; this.src='11.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 07 / 20</div>
+      <img alt="Planche 07" src="7.webp">
     </div>
 
-    <!-- Planche 11 -->
-    <div class="card">
-      <div class="card-title">Planche 11 / 20</div>
-      <img src="12.webp" alt="Planche 12" onerror="this.onerror=null; this.src='12.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 08 / 20</div>
+      <img alt="Planche 08" src="8.webp">
     </div>
 
-    <!-- Planche 12 -->
-    <div class="card">
-      <div class="card-title">Planche 12 / 20</div>
-      <img src="13.webp" alt="Planche 13" onerror="this.onerror=null; this.src='13.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 09 / 20</div>
+      <img alt="Planche 09" src="9.webp">
     </div>
 
-    <!-- Planche 13 -->
-    <div class="card">
-      <div class="card-title">Planche 13 / 20</div>
-      <img src="14.webp" alt="Planche 14" onerror="this.onerror=null; this.src='14.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 10 / 20</div>
+      <img alt="Planche 11" src="11.webp">
     </div>
 
-    <!-- Planche 14 -->
-    <div class="card">
-      <div class="card-title">Planche 14 / 20</div>
-      <img src="15.webp" alt="Planche 15" onerror="this.onerror=null; this.src='15.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 11 / 20</div>
+      <img alt="Planche 12" src="12.webp">
     </div>
 
-    <!-- Planche 15 -->
-    <div class="card">
-      <div class="card-title">Planche 15 / 20</div>
-      <img src="16.webp" alt="Planche 16" onerror="this.onerror=null; this.src='16.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 12 / 20</div>
+      <img alt="Planche 13" src="13.webp">
     </div>
 
-    <!-- Planche 16 -->
-    <div class="card">
-      <div class="card-title">Planche 16 / 20</div>
-      <img src="17.webp" alt="Planche 17" onerror="this.onerror=null; this.src='17.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 13 / 20</div>
+      <img alt="Planche 14" src="14.webp">
     </div>
 
-    <!-- Planche 17 -->
-    <div class="card">
-      <div class="card-title">Planche 17 / 20</div>
-      <img src="18.webp" alt="Planche 18" onerror="this.onerror=null; this.src='18.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 14 / 20</div>
+      <img alt="Planche 15" src="15.webp">
     </div>
 
-    <!-- Planche 18 -->
-    <div class="card">
-      <div class="card-title">Planche 18 / 20</div>
-      <img src="19.webp" alt="Planche 19" onerror="this.onerror=null; this.src='19.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 15 / 20</div>
+      <img alt="Planche 16" src="16.webp">
     </div>
 
-    <!-- Planche 19 -->
-    <div class="card">
-      <div class="card-title">Planche 19 / 20</div>
-      <img src="20.webp" alt="Planche 20" onerror="this.onerror=null; this.src='20.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 16 / 20</div>
+      <img alt="Planche 17" src="17.webp">
     </div>
 
-     <!-- Planche 20 -->
-    <div class="card">
-      <div class="card-title">Planche 20 / 20</div>
-      <img src="MERCI.png" alt="Planche 10" onerror="this.onerror=null; this.src='10.jpg';">
+    <div class="item page-landscape">
+      <div class="title">Planche 17 / 20</div>
+      <img alt="Planche 18" src="18.webp">
     </div>
+
+    <div class="item page-landscape">
+      <div class="title">Planche 18 / 20</div>
+      <img alt="Planche 19" src="19.webp">
+    </div>
+
+    <div class="item page-landscape">
+      <div class="title">Planche 19 / 20</div>
+      <img alt="Planche 20" src="20.webp">
+    </div>
+
+    <div class="item page-landscape">
+      <div class="title">Planche 20 / 20</div>
+      <img alt="Planche 10" src="MERCI.png">
+    </div>
+
   </div>
 
 </body>
