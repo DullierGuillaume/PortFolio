@@ -45,30 +45,27 @@
       height: auto;
       border-radius: 4px;
     }
-     *****************************
+     /* *****************************
 @media print {
 
-  /* Format de la feuille */
+  /* Ne modifie rien sur le site à l'écran */
+
   @page {
     size: A4;
     margin: 0;
   }
 
-  /* On enlève le fond et les marges du site */
-  html,
   body {
     margin: 0 !important;
     padding: 0 !important;
+    display: block !important;
     background: white !important;
-    color: black !important;
   }
 
-  /* Le titre général du site ne doit pas être imprimé */
   header {
     display: none !important;
   }
 
-  /* Le conteneur ne doit plus fonctionner comme une page web */
   .container {
     display: block !important;
     width: 100% !important;
@@ -77,40 +74,27 @@
     padding: 0 !important;
   }
 
-  /* =========================
-     1 CARTE = 1 PAGE PDF
-     ========================= */
-
   .card {
-    width: 100% !important;
-    height: 100vh !important;
-
+    width: 210mm !important;
+    height: 297mm !important;
     margin: 0 !important;
     padding: 0 !important;
 
-    border: none !important;
+    border: 0 !important;
     border-radius: 0 !important;
     background: white !important;
 
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important;
 
-    break-after: page;
-    page-break-after: always;
-
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-after: page !important;
+    page-break-after: always !important;
   }
 
-  /* On ne garde pas le titre de la carte dans le PDF */
   .card-title {
     display: none !important;
   }
 
-  /* L'image occupe toute la page */
   .card img {
-    display: block !important;
-
     width: 100% !important;
     height: 100% !important;
 
@@ -119,13 +103,12 @@
     border-radius: 0 !important;
   }
 
-  /* Pas de page vide après la dernière planche */
   .card:last-child {
-    break-after: auto;
-    page-break-after: auto;
+    break-after: auto !important;
+    page-break-after: auto !important;
   }
 }
-   *****************************
+  /* *****************************
   </style>
 </head>
 <body>
