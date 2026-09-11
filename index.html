@@ -6,7 +6,7 @@
   <title>Guillaume Dullier — Portfolio</title>
   <style>
     /* =========================================================
-       1. AFFICHAGE ÉCRAN (Votre style d'origine conservé)
+       1. AFFICHAGE ÉCRAN (Design d'origine inchangé)
        ========================================================= */
     * {
       box-sizing: border-box;
@@ -68,16 +68,16 @@
     }
 
     /* =========================================================
-       2. IMPRESSION : RÉGLAGE DE HAUTEUR STRICTE SANS COUPURE
+       2. IMPRESSION : ORIENTATION DYNAMIQUE SANS ROGNAGE
        ========================================================= */
     @media print {
       @page page-portrait {
-        size: 210mm 297mm; /* A4 Portrait strict */
+        size: 210mm 297mm; /* A4 Portrait */
         margin: 6mm;
       }
 
       @page page-landscape {
-        size: 297mm 210mm; /* A4 Paysage strict */
+        size: 297mm 210mm; /* A4 Paysage */
         margin: 6mm;
       }
 
@@ -111,13 +111,12 @@
         margin: 0 !important;
         padding: 0 !important;
 
-        /* Saut de page strict par planche */
+        /* Une planche = une page */
         break-inside: avoid !important;
         page-break-inside: avoid !important;
         break-after: page !important;
         page-break-after: always !important;
 
-        /* Flexbox pour caler le contenu au centre de la feuille */
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
@@ -126,16 +125,16 @@
         overflow: hidden !important;
       }
 
-      /* Hauteur maximale calculée par rapport à la taille physique de la feuille */
+      /* Gestion de l'orientation et des hauteurs maximales */
       .item.page-portrait {
         page: page-portrait;
-        height: 285mm !important; /* 297mm - 12mm de marges */
+        height: 285mm !important; /* 297mm - marges */
         max-height: 285mm !important;
       }
 
       .item.page-landscape {
         page: page-landscape;
-        height: 198mm !important; /* 210mm - 12mm de marges */
+        height: 198mm !important; /* 210mm - marges */
         max-height: 198mm !important;
       }
 
@@ -144,7 +143,7 @@
         page-break-after: auto !important;
       }
 
-      /* Titre discret au-dessus de la planche */
+      /* Titres de planches */
       .item .title {
         border-bottom: none !important;
         color: #222222 !important;
@@ -157,7 +156,7 @@
         text-align: center !important;
       }
 
-      /* Image contrainte pour ne JAMAIS déborder ni être coupée */
+      /* Contrainte stricte pour ne pas déborder */
       .item.page-portrait img {
         max-width: 100% !important;
         max-height: calc(285mm - 10mm) !important;
@@ -186,7 +185,7 @@
 
   <div class="gallery">
     
-    <!-- FORMAT PORTRAIT (CV et Recommandations) -->
+    <!-- PORTRAIT : CV & Lettres -->
     <div class="item page-portrait">
       <div class="title">Curriculum Vitae — Guillaume Dullier</div>
       <img alt="CV Guillaume Dullier" src="cv.png">
@@ -202,7 +201,7 @@
       <img alt="Lettre E de Vimal" src="Lettre de recommandation E de Vimal.webp">
     </div>
 
-    <!-- FORMAT PAYSAGE (Planches techniques) -->
+    <!-- PAYSAGE : Planches 01 à 12 -->
     <div class="item page-landscape">
       <div class="title">Planche 01 / 20</div>
       <img alt="Planche 01" src="1.webp">
@@ -263,16 +262,18 @@
       <img alt="Planche 12" src="13.webp">
     </div>
 
-    <div class="item page-landscape">
+    <!-- PORTRAIT : Planches 13 et 14 -->
+    <div class="item page-portrait">
       <div class="title">Planche 13 / 20</div>
       <img alt="Planche 13" src="14.webp">
     </div>
 
-    <div class="item page-landscape">
+    <div class="item page-portrait">
       <div class="title">Planche 14 / 20</div>
       <img alt="Planche 14" src="15.webp">
     </div>
 
+    <!-- PAYSAGE : Planches 15 à 18 -->
     <div class="item page-landscape">
       <div class="title">Planche 15 / 20</div>
       <img alt="Planche 15" src="16.webp">
@@ -293,13 +294,13 @@
       <img alt="Planche 18" src="19.webp">
     </div>
 
-    <!-- FORMAT PORTRAIT (Planche 19 est au format vertical) -->
+    <!-- PORTRAIT : Planche 19 -->
     <div class="item page-portrait">
       <div class="title">Planche 19 / 20</div>
       <img alt="Planche 19" src="20.webp">
     </div>
 
-    <!-- FORMAT PAYSAGE (Remerciements) -->
+    <!-- PAYSAGE : Planche 20 (Merci) -->
     <div class="item page-landscape">
       <div class="title">Planche 20 / 20</div>
       <img alt="Planche 20" src="MERCI.png">
